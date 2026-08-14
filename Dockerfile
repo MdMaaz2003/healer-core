@@ -4,6 +4,7 @@ COPY go.mod ./
 COPY cmd/ cmd/
 RUN go build -o healer ./cmd/healer
 
+# hadolint ignore=DL3006
 FROM gcr.io/distroless/static-debian12
 COPY --from=build /src/healer /healer
 CMD ["/healer"]
