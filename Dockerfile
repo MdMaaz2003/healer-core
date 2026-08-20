@@ -4,8 +4,8 @@ COPY go.mod go.sum ./
 RUN go mod download
 COPY cmd/ cmd/
 COPY internal/ internal/
-RUN go build -o healer ./cmd/healer
+RUN CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o healer ./cmd/healer
 
-FROM gcr.io/distroless/static-debian12
+FROM gcr.io/distroless/static-debian12:latest
 COPY --from=builder /src/healer /healer
 ENTRYPOINT ["/healer"]
