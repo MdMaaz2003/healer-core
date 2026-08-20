@@ -13,6 +13,7 @@ const RolloutRestart Action = "rollout-restart"
 // The ONLY alert->action mapping that exists. Unknown alert = no action.
 var allowlist = map[string]Action{
 	"PodRestartedTooOften": RolloutRestart,
+	"KubePodCrashLooping":  RolloutRestart,
 }
 
 type Engine struct {
